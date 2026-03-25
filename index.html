@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoDetailingKLC 🧽 — Mobile Car Detailing Karlovac</title>
+
+  <!-- ========== SECURITY META TAGS ========== -->
+  <!-- Sprječava clickjacking -->
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <!-- Sprječava MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <!-- Kontrolira koliko referrer info se šalje -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!--
+    Content Security Policy:
+    - script-src 'self'          → samo naš main.js, bez inline scripti
+    - style-src 'self' + fonts   → naš styles.css + Google Fonts
+    - font-src fonts.gstatic.com → Google Fonts fontovi
+    - img-src 'self' data:       → lokalne slike + data URI-ji
+    - connect-src 'none'         → bez fetch/XHR poziva
+    - frame-ancestors 'none'     → nije moguće ugraditi stranicu u iframe
+    - base-uri 'self'            → sprječava <base> tag injection
+    - form-action 'self'         → forme mogu submitati samo na naš origin
+  -->
+  <meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'none';
+      script-src 'self';
+      style-src 'self' https://fonts.googleapis.com;
+      font-src https://fonts.gstatic.com;
+      img-src 'self' data:;
+      connect-src 'none';
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
+    ">
+
+  <!-- ========== FONTS ========== -->
+  <!-- crossorigin je obavezan za preconnect na cross-origin resurse -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- ========== STYLES ========== -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <!-- loading="lazy" na hero logi nema smisla jer je above the fold, ali za footer da -->
+  <img src="assets/logo.webp" alt="AutoDetailingKLC" class="nav-logo" width="55" height="55">
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#usluge">Usluge</a></li>
+    <li><a href="#prednosti">Zašto mi</a></li>
+    <li><a href="#proces">Proces</a></li>
+    <li><a href="#paketi">Paketi</a></li>
+    <li><a href="#kontakt" class="nav-cta">Rezerviraj</a></li>
+  </ul>
+  <!-- Maknuti onclick="toggleMenu()" — event listener je u main.js -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Otvori izbornik" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-diagonal"></div>
+
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <span class="eyebrow">🧽 Mobile Car Detailing • Karlovac</span>
+      <h1>
+        <span class="line-chrome">TVOJ AUTO</span><br>
+        <span class="line-red">ZASLUŽUJE</span><br>
+        <span class="line-blue">SAVRŠENSTVO</span>
+      </h1>
+      <p>Profesionalni mobile detailing direktno na tvoju adresu. Bez gužve, bez čekanja — čist auto gdje god da se nalaziš u Karlovcu i okolici.</p>
+      <div class="hero-btns">
+        <a href="#kontakt" class="btn-primary">📞 Rezerviraj odmah</a>
+        <a href="#usluge" class="btn-secondary">🔍 Pogledaj usluge</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="logo-ring"></div>
+      <div class="logo-ring"></div>
+      <div class="logo-ring"></div>
+      <img src="assets/logo.webp" alt="AutoDetailingKLC Logo" class="hero-logo" width="320" height="320">
+      <div class="hero-badge">🌟 Novo u Karlovcu!</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip" aria-label="Naše prednosti">
+  <div class="trust-ticker" aria-hidden="true">
+    <div class="trust-item"><span class="trust-icon">🚗</span> DOLAZIMO NA TVOJU ADRESU</div>
+    <div class="trust-item"><span class="trust-icon">⚡</span> BRZO I PROFESIONALNO</div>
+    <div class="trust-item"><span class="trust-icon">💎</span> PREMIUM SREDSTVA ZA ČIŠĆENJE</div>
+    <div class="trust-item"><span class="trust-icon">📍</span> KARLOVAC I OKOLICA</div>
+    <div class="trust-item"><span class="trust-icon">🛡️</span> ZAŠTITA LAKA I INTERIJERA</div>
+    <div class="trust-item"><span class="trust-icon">✅</span> 100% ZADOVOLJSTVO GARANTIRANO</div>
+    <!-- Duplikat za beskonačni ticker efekt -->
+    <div class="trust-item"><span class="trust-icon">🚗</span> DOLAZIMO NA TVOJU ADRESU</div>
+    <div class="trust-item"><span class="trust-icon">⚡</span> BRZO I PROFESIONALNO</div>
+    <div class="trust-item"><span class="trust-icon">💎</span> PREMIUM SREDSTVA ZA ČIŠĆENJE</div>
+    <div class="trust-item"><span class="trust-icon">📍</span> KARLOVAC I OKOLICA</div>
+    <div class="trust-item"><span class="trust-icon">🛡️</span> ZAŠTITA LAKA I INTERIJERA</div>
+    <div class="trust-item"><span class="trust-icon">✅</span> 100% ZADOVOLJSTVO GARANTIRANO</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="usluge">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-label">Što nudimo</span>
+      <h2 class="section-title">Naše <span style="color:var(--red)">Usluge</span></h2>
+      <p class="section-subtitle">Od brzog osvježavanja do kompletnog detailinga — prilagođavamo se tvojim potrebama i budžetu.</p>
+    </div>
+  </div>
+
+  <div class="service-zigzag">
+
+    <div class="service-row">
+      <div class="service-visual service-color-1 reveal-left">
+        <div class="service-icon-bg" aria-hidden="true">🚗</div>
+        <div class="service-visual-inner">
+          <span class="service-emoji" aria-hidden="true">🚗</span>
+          <div class="service-price-tag">od 30 €</div>
+        </div>
+      </div>
+      <div class="service-info reveal-right">
+        <div class="service-num" aria-hidden="true">01</div>
+        <h3>Exterior Detailing</h3>
+        <p>Profesionalno čišćenje i zaštita vanjske karoserije. Tvoj auto će sjajiti kao da je tek izašao iz salona.</p>
+        <ul class="service-features">
+          <li>Ručno pranje karoserije</li>
+          <li>Čišćenje naplataka i guma</li>
+          <li>Uklanjanje insekata i katrana</li>
+          <li>Zaštitna vosak prevlaka</li>
+        </ul>
+        <a href="#kontakt" class="btn-primary" style="width:fit-content">Naruči →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-visual service-color-2 reveal-right">
+        <div class="service-icon-bg" aria-hidden="true">🛋️</div>
+        <div class="service-visual-inner">
+          <span class="service-emoji" aria-hidden="true">🛋️</span>
+          <div class="service-price-tag">od 40 €</div>
+        </div>
+      </div>
+      <div class="service-info reveal-left">
+        <div class="service-num" aria-hidden="true">02</div>
+        <h3>Interior Detailing</h3>
+        <p>Dubinsko čišćenje interijera koje uklanja i najtvrdokornije mrlje, mirise i prljavštinu. Svježe kao novo!</p>
+        <ul class="service-features">
+          <li>Usisavanje i čišćenje tepiha</li>
+          <li>Čišćenje sjedala (tkanina/koža)</li>
+          <li>Dezinfekcija svih površina</li>
+          <li>Uklanjanje neugodnih mirisa</li>
+        </ul>
+        <a href="#kontakt" class="btn-primary" style="width:fit-content">Naruči →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-visual service-color-3 reveal-left">
+        <div class="service-icon-bg" aria-hidden="true">💎</div>
+        <div class="service-visual-inner">
+          <span class="service-emoji" aria-hidden="true">💎</span>
+          <div class="service-price-tag">od 80 €</div>
+        </div>
+      </div>
+      <div class="service-info reveal-right">
+        <div class="service-num" aria-hidden="true">03</div>
+        <h3>Full Detailing</h3>
+        <p>Kompletna transformacija tvog vozila — iznutra i izvana. Naš flagship paket za one koji žele savršenstvo.</p>
+        <ul class="service-features">
+          <li>Sve iz exterior + interior paketa</li>
+          <li>Poliranje i zaštita laka</li>
+          <li>Čišćenje motora</li>
+          <li>Impregnacija stakla</li>
+        </ul>
+        <a href="#kontakt" class="btn-primary" style="width:fit-content">Naruči →</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-visual service-color-4 reveal-right">
+        <div class="service-icon-bg" aria-hidden="true">🔬</div>
+        <div class="service-visual-inner">
+          <span class="service-emoji" aria-hidden="true">🔬</span>
+          <div class="service-price-tag">Upit</div>
+        </div>
+      </div>
+      <div class="service-info reveal-left">
+        <div class="service-num" aria-hidden="true">04</div>
+        <h3>Keramička Zaštita</h3>
+        <p>Vrhunska zaštita laka keramičkim premazom koja traje godinama. Investicija koja štiti vrijednost tvog auta.</p>
+        <ul class="service-features">
+          <li>Profesionalni keramički premaz</li>
+          <li>Zaštita do 3+ godine</li>
+          <li>Hidrofobni efekt</li>
+          <li>Otpornost na UV zrake i kemikalije</li>
+        </ul>
+        <a href="#kontakt" class="btn-primary" style="width:fit-content">Zatraži upit →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="prednosti">
+  <div class="container">
+    <div class="prednosti-layout">
+      <div class="prednosti-text reveal-left">
+        <span class="section-label">Zašto AutoDetailingKLC</span>
+        <h2 class="section-title">Više od <span style="color:var(--red)">Pranja</span></h2>
+        <p class="section-subtitle">Nismo klasična autopraonica. Mi smo mobilni tim stručnjaka koji dolaze k tebi, štede tvoje vrijeme i donose premium rezultate.</p>
+        <div class="stats-row">
+          <div class="stat-card reveal delay-1">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Mobilni servis</div>
+          </div>
+          <div class="stat-card reveal delay-2">
+            <div class="stat-num">5★</div>
+            <div class="stat-label">Ocjena usluge</div>
+          </div>
+          <div class="stat-card reveal delay-3">
+            <div class="stat-num">24h</div>
+            <div class="stat-label">Odgovor na upit</div>
+          </div>
+          <div class="stat-card reveal delay-4">
+            <div class="stat-num">KLC</div>
+            <div class="stat-label">Karlovac i okolica</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prednosti-cards reveal-right">
+        <div class="prednost-card delay-1 reveal">
+          <span class="prednost-icon" aria-hidden="true">📍</span>
+          <h4>Dolazimo k Tebi</h4>
+          <p>Nema gubljenja vremena na vožnju do autopraone. Mi dolazimo na tvoju adresu — posao, dom ili bilo gdje u gradu.</p>
+        </div>
+        <div class="prednost-card delay-2 reveal">
+          <span class="prednost-icon" aria-hidden="true">⚗️</span>
+          <h4>Premium Sredstva</h4>
+          <p>Koristimo isključivo profesionalna sredstva za čišćenje i zaštitu koja su sigurna za tvoje vozilo.</p>
+        </div>
+        <div class="prednost-card delay-3 reveal">
+          <span class="prednost-icon" aria-hidden="true">🕐</span>
+          <h4>Štedimo Tvoje Vrijeme</h4>
+          <p>Dok mi radimo na tvom autu, ti se baviš svojim poslom. Nema čekanja u redu, nema vožnje.</p>
+        </div>
+        <div class="prednost-card delay-4 reveal">
+          <span class="prednost-icon" aria-hidden="true">🛡️</span>
+          <h4>Garancija Kvalitete</h4>
+          <p>Stojimo iza svog rada. Ako nisi zadovoljan rezultatom, besplatno ćemo ispraviti sve nedostatke.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="proces">
+  <div class="container">
+    <div class="process-header reveal">
+      <span class="section-label">Kako to funkcionira</span>
+      <h2 class="section-title">Jednostavno kao <span style="color:var(--red)">1-2-3</span></h2>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal delay-1">
+        <div class="step-num" aria-hidden="true">1</div>
+        <span class="step-emoji" aria-hidden="true">📱</span>
+        <h4>Kontaktiraj Nas</h4>
+        <p>Pošalji poruku ili nazovi. Dogovaramo termin koji tebi odgovara.</p>
+      </div>
+      <div class="process-step reveal delay-2">
+        <div class="step-num" aria-hidden="true">2</div>
+        <span class="step-emoji" aria-hidden="true">📍</span>
+        <h4>Dolazimo k Tebi</h4>
+        <p>U dogovorenom terminu dolazimo na tvoju lokaciju s kompletnom opremom.</p>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="step-num" aria-hidden="true">3</div>
+        <span class="step-emoji" aria-hidden="true">✨</span>
+        <h4>Radimo Magiju</h4>
+        <p>Profesionalno i pažljivo detailiramo tvoje vozilo prema odabranom paketu.</p>
+      </div>
+      <div class="process-step reveal delay-4">
+        <div class="step-num" aria-hidden="true">4</div>
+        <span class="step-emoji" aria-hidden="true">🎉</span>
+        <h4>Uživaj u Čistom Autu</h4>
+        <p>Primaš blistavo čist auto. Plaćanje tek nakon što si 100% zadovoljan!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="paketi">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Cijene i paketi</span>
+      <h2 class="section-title">Odaberi Svoj <span style="color:var(--red)">Paket</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Transparentne cijene bez skrivenih troškova. Prilagođavamo se svakom vozilu i zahtjevu.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="price-card reveal delay-1">
+        <span class="price-icon" aria-hidden="true">🚿</span>
+        <div class="price-name">BASIC</div>
+        <div class="price-desc">Savršeno za redovno osvježavanje</div>
+        <div class="price-amount">30€</div>
+        <div class="price-note">Osobno vozilo • ~2h</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="check">Ručno pranje eksterijera</li>
+          <li class="check">Čišćenje naplataka</li>
+          <li class="check">Brisanje stakala izvana</li>
+          <li class="check">Zaštitni vosak</li>
+          <li class="cross">Interior čišćenje</li>
+          <li class="cross">Poliranje laka</li>
+        </ul>
+        <a href="#kontakt" class="btn-secondary" style="width:100%;text-align:center;justify-content:center">Odaberi Basic</a>
+      </div>
+
+      <div class="price-card featured reveal delay-2">
+        <div class="featured-badge">⭐ Najpopularniji</div>
+        <span class="price-icon" aria-hidden="true">💎</span>
+        <div class="price-name">PREMIUM</div>
+        <div class="price-desc">Kompletna transformacija iznutra i izvana</div>
+        <div class="price-amount">80€</div>
+        <div class="price-note">Osobno vozilo • ~4-5h</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="check">Sve iz Basic paketa</li>
+          <li class="check">Dubinsko čišćenje interijera</li>
+          <li class="check">Usisavanje i šamponirani tepisi</li>
+          <li class="check">Čišćenje sjedala</li>
+          <li class="check">Dezinfekcija i osvježivač</li>
+          <li class="check">Brisanje plastike i stakala</li>
+        </ul>
+        <a href="#kontakt" class="btn-primary" style="width:100%;text-align:center;justify-content:center">Odaberi Premium</a>
+      </div>
+
+      <div class="price-card reveal delay-3">
+        <span class="price-icon" aria-hidden="true">🔬</span>
+        <div class="price-name">ELITE</div>
+        <div class="price-desc">Keramika i dugotrajana zaštita</div>
+        <div class="price-amount">Upit</div>
+        <div class="price-note">Cijena ovisno o vozilu i stanju</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="check">Sve iz Premium paketa</li>
+          <li class="check">Strojno poliranje laka</li>
+          <li class="check">Keramički premaz</li>
+          <li class="check">Impregnacija stakla</li>
+          <li class="check">Zaštita guma i plastike</li>
+          <li class="check">Čišćenje motora</li>
+        </ul>
+        <a href="#kontakt" class="btn-secondary" style="width:100%;text-align:center;justify-content:center">Zatraži upit</a>
+      </div>
+
+    </div>
+
+    <p class="reveal" style="text-align:center;margin-top:2.5rem;color:rgba(248,248,255,0.4);font-size:0.9rem;">
+      * Cijene mogu varirati ovisno o veličini vozila i razini prljavštine. Kontaktiraj nas za točnu ponudu.
+    </p>
+  </div>
+</section>
+
+<!-- CTA / KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <span class="section-label">Jesi li spreman?</span>
+      <h2 class="section-title">Rezerviraj Termin<br>Danas!</h2>
+      <p>Napiši nam, dogovorimo termin koji ti odgovara i tvoj auto uskoro sveti kao nikad do sada.</p>
+
+      <div class="cta-buttons">
+        <!--
+          rel="noopener noreferrer":
+          - noopener  → nova stranica ne može pristupiti window.opener (sprječava reverse tabnapping napad)
+          - noreferrer → ne šalje Referer header vanjskim stranicama
+          Obavezno za sve target="_blank" linkove na vanjske domene!
+        -->
+        <a href="https://wa.me/385TVOJ_BROJ"
+           class="btn-white"
+           target="_blank"
+           rel="noopener noreferrer">
+          💬 WhatsApp poruka
+        </a>
+        <a href="tel:+385TVOJ_BROJ" class="btn-ghost-white">📞 Pozovi nas</a>
+        <a href="https://www.instagram.com/autodetailingklc"
+           class="btn-ghost-white"
+           target="_blank"
+           rel="noopener noreferrer">
+          📸 Instagram
+        </a>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <span aria-hidden="true">📍</span>
+          <span>Karlovac i okolica</span>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">🕐</span>
+          <span>Pon–Ned: 8:00–20:00</span>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">⚡</span>
+          <span>Odgovaramo unutar 2h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <img src="assets/logo.webp"
+           alt="AutoDetailingKLC"
+           class="footer-logo"
+           width="60" height="60"
+           loading="lazy">
+      <ul class="footer-links">
+        <li><a href="#usluge">Usluge</a></li>
+        <li><a href="#prednosti">O nama</a></li>
+        <li><a href="#paketi">Paketi</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/autodetailingklc"
+           class="social-link"
+           title="Instagram"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Instagram profil">📸</a>
+        <a href="#"
+           class="social-link"
+           title="Facebook"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Facebook stranica">📘</a>
+        <a href="#"
+           class="social-link"
+           title="TikTok"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="TikTok profil">🎵</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 AutoDetailingKLC 🧽 — Mobile Car Detailing Karlovac. Sva prava pridržana.</p>
+  </div>
+</footer>
+
+<!-- Vanjski JS — na kraju body taga, bez defer potrebe jer je already at bottom -->
+<script src="main.js"></script>
+
+</body>
+</html>
